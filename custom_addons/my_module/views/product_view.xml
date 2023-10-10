@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define a new menu item -->
+        <menuitem id="menu_my_module" name="My Module" parent="product.menu_product" sequence="10"/>
+        
+        <!-- Define a new action for the menu item -->
+        <record id="action_my_module" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- Define a form view for the product model -->
+        <record id="view_product_form" model="ir.ui.view">
+            <field name="name">product.form</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <form string="Product">
+                    <field name="name"/>
+                    <field name="list_price"/>
+                    <!-- Add more fields as needed -->
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
