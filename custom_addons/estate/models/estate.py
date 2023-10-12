@@ -1,9 +1,13 @@
-from odoo import models, fields
+from odoo import models, fields, api
 from datetime import datetime, timedelta
+
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class Estate(models.Model):
     _name="estate.property"
-    _description="Modulo de prueba"
+    _description="Real Estate's properties"
 
     name = fields.Char(required=True, string="Nombre")
     description = fields.Text()
@@ -35,6 +39,45 @@ class Estate(models.Model):
     tag_ids = fields.Many2many("estate.property.tag", string="Tags")
 
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
+
+    total_area = fields.Integer(compute="_compute_area", string="Total Area (sqm)")
+
+    best_offer = fields.Float(compute="_compute_best_offer")
+
+    #COMPUTE METHODS (INCLINARSRE MAS POR COMPUTE METHODS)
+
+    @api.depends('living_area', 'garden_area')
+    def _compute_area(self):   
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+
+    @api.depends('offer_ids.price')
+    def _compute_best_offer(self):   
+        for record in self:
+            # if(record.offer_ids):
+            #     offers = record.offer_ids.mapped('price')
+            #     var_best_offer = 0
+            #     for price in offers:
+            #         if price > var_best_offer: var_best_offer = price
+
+            #     record.best_offer = var_best_offer
+            # else:
+            #     record.best_offer = 0
+            record.best_offer = max(record.offer_ids.mapped('price'), default=0)
+
+
+    # ONCHANGE METHODS
+
+    @api.onchange("garden")
+    def _onchange_default_garden(self):
+        if self.garden:
+            self.garden_area=10
+            self.garden_orientation='north'
+        else:
+            self.garden_area=0
+            self.garden_orientation=''
+
+
 
 
 
