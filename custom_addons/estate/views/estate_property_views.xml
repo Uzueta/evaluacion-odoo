@@ -84,6 +84,11 @@
                                     </div>
 
                                 </page>
+                                
+                                <page string="Offers">
+                                    <field name="offer_ids" />
+                                </page>
+
                                 <page string="Other info">
 
                                     <div class="d-flex">
@@ -96,6 +101,7 @@
                                     </div>
 
                                 </page>
+
                             </notebook>
                         </group>
                     </sheet>
