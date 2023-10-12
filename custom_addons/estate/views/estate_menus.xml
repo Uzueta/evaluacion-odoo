@@ -4,5 +4,9 @@
     <menuitem id="test_first_level_menu" name="Advertisements">
         <menuitem id="test_model_menu_action" action="estate_model_action"/>
     </menuitem>
+    <menuitem id="type_first_level_menu" name="Ajustes">
+        <menuitem id="type_model_menu_action" action="property_type_model_action"/>
+        <menuitem id="tag_model_menu_action" action="property_tag_model_action"/>
+    </menuitem>
 </menuitem>
 </odoo>
