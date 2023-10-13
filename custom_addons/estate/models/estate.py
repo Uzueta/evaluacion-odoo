@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
+from odoo.tools.float_utils import float_compare
 from datetime import datetime, timedelta
 
 import logging
@@ -8,6 +9,7 @@ _logger = logging.getLogger(__name__)
 class Estate(models.Model):
     _name="estate.property"
     _description="Real Estate's properties"
+    _order = "id desc"
 
     name = fields.Char(required=True, string="Nombre")
     description = fields.Text()
@@ -44,6 +46,15 @@ class Estate(models.Model):
 
     best_offer = fields.Float(compute="_compute_best_offer")
 
+
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)',
+         'The expected price of a property must be greater than 0'),
+         ('check_selling_price', 'CHECK(selling_price > 0)',
+         'The selling price of a property must be greater than 0'),
+    ]
+
+
     #COMPUTE METHODS (INCLINARSRE MAS POR COMPUTE METHODS)
 
     @api.depends('living_area', 'garden_area')
@@ -76,6 +87,33 @@ class Estate(models.Model):
         else:
             self.garden_area=0
             self.garden_orientation=''
+
+    #ACTION
+
+    def action_sold_property(self):
+        for record in self:
+            if record.state != "canceled":
+                record.state = "sold"
+            else:
+                raise exceptions.UserError("A canceled property can't be sold")
+        return True
+    
+    def action_cancel_property(self):
+        for record in self:
+            if record.state != "sold":
+                record.state = "canceled"
+            else:
+                raise exceptions.UserError("A sold property can't be canceled")
+        return True
+    
+    #CONSTRAINTS
+    
+    @api.constrains('expected_price','selling_price')
+    def check_prices(self):
+        for record in self:
+            if record.selling_price > 0 and float_compare(record.selling_price, (record.expected_price * 0.90), precision_digits=2) < 0:
+                raise exceptions.ValidationError('The selling price must be at least the 90% of the expected price')
+
 
 
 

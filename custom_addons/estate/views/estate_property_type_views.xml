@@ -11,79 +11,38 @@
         </field>
     </record>
 
-    <!-- <record id="estate_property_view_form" model="ir.ui.view">
-            <field name="name">estate.property.type.form</field>
-            <field name="model">estate.property.type</field>
-            <field name="arch" type="xml">
-                <form string="Property Type">
-                    <sheet>
-                        <h1 class="mb32">
-                            <field name="name" class="mb16"/>
-                        </h1>
-                        <group>
-                            <group>
-                                <field name="postcode"/>
-                                <field name="date_availability"/>
-                            </group>
-                            <group>
-                                <field name="expected_price"/>
-                                <field name="selling_price"/>
-                            </group>
-                            <notebook>
-                                <page string="Description">
-                                    <div class="d-flex">
-                                        <label class="o_form_label col-1" for="description"/>
-                                        <field name="description" string="Descripcion"/>
-                                    </div>
-                                    <div class="d-flex">
-                                        <label class="col-1" for="bedrooms"/>
-                                        <field name="bedrooms" />
-                                    </div>
-
-                                    <div class="d-flex">
-                                        <label class="col-1" for="living_area"/>
-                                        <field name="living_area" string="Living Area (sqm)" />
-                                    </div>
-
-                                    <div class="d-flex">
-                                        <label class="col-1" for="garage"/>
-                                        <field name="garage" />
-                                    </div>
-
-                                    <div class="d-flex">
-                                        <label class="col-1" for="garden"/>
-                                        <field name="garden" />
-                                    </div>
-
-                                    <div class="d-flex">
-                                        <label class="col-1" for="garden_area"/>
-                                        <field name="garden_area" />
-                                    </div>
-
-                                    <div class="d-flex">
-                                        <label class="col-1" for="garden_orientation"/>
-                                        <field name="garden_orientation" />
-                                    </div>
-
-                                    <div class="d-flex">
-                                        <label class="col-1" for="state"/>
-                                        <field name="state" />
-                                    </div>
-
-                                </page>
-                            </notebook>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record> -->
+    <record id="estate_type_view_form" model="ir.ui.view">
+        <field name="name">estate.property.type.form</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="Property Type">
+                <sheet>
+                    <h1 class="mb32">
+                        <field name="name" class="mb16"/>
+                    </h1>
+                    <notebook>
+                        <page string="Properties">
+                            <field name="property_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
 
-    <record id="estate_property_view_tree" model="ir.ui.view">
+    <record id="estate_type_view_tree" model="ir.ui.view">
         <field name="name">estate.property.type.tree</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <tree string="Type">
+                <field name="sequence" widget="handle"/>
                 <field name="name"/>
             </tree>
         </field>

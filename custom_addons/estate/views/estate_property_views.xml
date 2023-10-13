@@ -27,14 +27,20 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form string="Estate property">
+                    <header>
+                        <button name="action_sold_property" type="object" string="Sold"/>
+                        <button name="action_cancel_property" type="object" string="Cancel"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
+                        <!-- <button type="action" name="%(estate.property_tag_model_action)d" string="My Action"/> -->
+                    </header>
                     <sheet>
                         <h1>
                             <field name="name" class="mb2"/>
                         </h1>
-                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         <group>
                             <group>
-                                <field name="property_type_id"/>
+                                <field name="property_type_id" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="postcode"/>
                                 <field name="date_availability"/>
                             </group>
@@ -69,14 +75,14 @@
                                         <field name="garden" />
                                     </div>
 
-                                    <div class="d-flex">
+                                    <div class="d-flex" attrs="{'invisible': [('garden', '=', False)]}">
                                         <label class="col-1" for="garden_area"/>
-                                        <field name="garden_area" />
+                                        <field name="garden_area"/>
                                     </div>
 
-                                    <div class="d-flex">
+                                    <div class="d-flex" attrs="{'invisible': [('garden', '=', False)]}">
                                         <label class="col-1" for="garden_orientation"/>
-                                        <field name="garden_orientation" />
+                                        <field name="garden_orientation"/>
                                     </div>
 
                                     <div class="d-flex">
