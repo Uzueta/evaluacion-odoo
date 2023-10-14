@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="sale_report_auditorias" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//td[@name='td_name']" position="replace">
+            <td name="td_name">
+                <span t-field="line.name"/>
+                <br/>
+                Auditoría - <span t-field="line.auditoria"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>
+

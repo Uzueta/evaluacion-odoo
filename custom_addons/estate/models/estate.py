@@ -46,6 +46,25 @@ class Estate(models.Model):
 
     best_offer = fields.Float(compute="_compute_best_offer")
 
+    # country_id = fields.Many2one('res.country', string="Country", default=lambda self: self.env['res.country'].search([('name', '=', 'México')], limit=1))
+    # state_id = fields.Many2one('res.country.state', string="State", domain="[('country_id', '=', country_id)]")
+    ciudad = fields.Many2one('res.city', string="City")
+
+    @api.onchange('state_id')
+    def _onchange_state_id(self):
+        if self.state_id:
+            return {
+                'domain': {
+                    'city_id': [('state_id', '=', self.state_id.id)]
+                }
+            }
+        else:
+            return {
+                'domain': {
+                    'city_id': []
+                }
+            }
+
 
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)',

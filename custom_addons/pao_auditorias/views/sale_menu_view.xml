@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <menuitem id="menu_sale_auditorias" name="Auditorías" parent="sale.sale_order_menu" action="pao_auditorias_model_action"/>
+    
+</odoo>

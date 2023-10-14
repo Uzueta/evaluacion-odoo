@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="pao_auditorias_view_form" model="ir.ui.view">
+        <field name="name">pao.auditorias.form</field>
+        <field name="model">pao.auditorias</field>
+        <field name="arch" type="xml">
+            <form string="Offer">
+                <sheet>
+                    <group>
+                        <field name="numero"/>
+                        <field name="cliente"/>
+                        <field name="pais"/>
+                        <field name="estado"/>
+                        <field name="ciudad"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="pao_auditorias_view_tree" model="ir.ui.view">
+        <field name="name">pao.auditorias.tree</field>
+        <field name="model">pao.auditorias</field>
+        <field name="arch" type="xml">
+            <tree string="Property">
+                <field name="numero"/>
+                <field name="cliente"/>
+                <field name="pais"/>
+                <field name="estado"/>
+                <field name="ciudad"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pao_auditorias_model_action" model="ir.actions.act_window">
+        <field name="name">Auditorías</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pao.auditorias</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
